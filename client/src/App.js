@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import MenuIndex from "./components/MenuIndex";
+import { Container, } from "bloomer";
+import axios from "axios";
+import MenuForm from "./components/MenuForm";
 
 class App extends Component {
+  state = { menus: [], foods: [], };
+
+  componentDidMount() {
+    axios.get("/api/menus")
+      .then( res => {
+        this.setState({ menus: res.data, });
+      })
+  }
+
+  addMenu = (name) => {
+    axios.post("/api/menus", {name})
+      .then( res =>{
+        const {menus, } = this.state;
+        this.setState({ menus: [...menus, res.data], });
+      })
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Container style={{ textAlign: "center", marginTop: 10 }}>
+        <MenuIndex
+          menus={this.state.menus}
+          foods={this.state.foods}
+        />
+        <br />
+        <br />
+        <MenuForm
+          addMenu={this.addMenu}
+        />
+      </Container>
     );
   }
 }

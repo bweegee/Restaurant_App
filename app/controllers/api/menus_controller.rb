@@ -1,15 +1,16 @@
 class Api::MenusController < ApplicationController
-  before_action set_menu, only:[:update, :destroy]
+  before_action :set_menu, only:[:update, :destroy]
 
   def index
     render json: Menu.all
   end
 
   def create
-    menu = Menu.new(item_params)
+    menu = Menu.new(menu_params)
     if menu.save
       render json: menu
     else
+      # render json: { errors: menu.errors }, status: :unprocessable_entity
     end
   end
 
