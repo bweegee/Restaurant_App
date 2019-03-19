@@ -16,19 +16,17 @@ class MenuForm extends React.Component {
 
   render() {
     return(
-      <Field>
-        <Label>Menu</Label>
-        <Input
+      <form onSubmit={this.handleSubmit}>
+        <label>Menu</label>
+        <input
           type="text"
           placeholder="Name"
           required
           value={this.state.name}
           onChange={this.handleChange}
         />
-        <Control>
-          <Button onSubmit={this.handleSubmit} isColor='primary'>Submit</Button>
-        </Control>
-      </Field>
+          <button onSubmit={this.handleSubmit} isColor='primary'>Submit</button>
+      </form>
     )
   }
 }

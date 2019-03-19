@@ -15,9 +15,9 @@ class App extends Component {
   }
 
   addMenu = (name) => {
-    axios.post("/api/menus", {name})
-      .then( res =>{
-        const {menus, } = this.state;
+    axios.post("/api/menus", { name })
+      .then( res => {
+        const { menus, } = this.state;
         this.setState({ menus: [...menus, res.data], });
       })
   }
